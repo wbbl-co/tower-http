@@ -10,8 +10,14 @@ use std::{
     future::Future,
     pin::Pin,
     task::{ready, Context, Poll},
-    time::Instant,
 };
+
+#[cfg(not(feature = "web_time"))]
+use std::time::Instant;
+
+#[cfg(feature = "web_time")]
+use web_time::Instant;
+
 use tracing::Span;
 
 pin_project! {

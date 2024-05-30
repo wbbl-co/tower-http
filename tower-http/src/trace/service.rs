@@ -11,8 +11,13 @@ use http_body::Body;
 use std::{
     fmt,
     task::{Context, Poll},
-    time::Instant,
 };
+
+#[cfg(not(feature = "web_time"))]
+use std::time::Instant;
+#[cfg(feature = "web_time")]
+use web_time::Instant;
+
 use tower_service::Service;
 
 /// Middleware that adds high level [tracing] to a [`Service`].
